@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50520
 File Encoding         : 65001
 
-Date: 2018-11-11 14:49:08
+Date: 2019-01-30 16:26:35
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -36,11 +36,11 @@ CREATE TABLE `tb_menu` (
 -- ----------------------------
 -- Records of tb_menu
 -- ----------------------------
-INSERT INTO `tb_menu` VALUES ('1', '2018-06-23 18:11:17', '2018-11-08 17:10:57', '1', 'icon-sys', '用户管理', '0', '0', '2', '');
+INSERT INTO `tb_menu` VALUES ('1', '2018-06-23 18:11:17', '2019-01-30 16:23:38', '1', 'icon-sys', '用户管理', '0', '0', '1', '');
 INSERT INTO `tb_menu` VALUES ('2', '2018-06-23 18:11:17', '2018-11-09 15:29:20', '2', 'icon-nav', '用户管理', '0', '1', '3', 'user/userManage/toUserManage');
 INSERT INTO `tb_menu` VALUES ('3', '2018-06-23 18:11:17', '2018-11-09 15:29:59', '2', 'icon-nav', '角色管理', '0', '1', '2', 'user/roleManage/toRoleManage');
 INSERT INTO `tb_menu` VALUES ('4', '2018-06-23 18:11:17', '2018-11-09 15:30:33', '2', 'icon-nav', '菜单管理', '0', '1', '1', 'user/menuManage/toMenuManage');
-INSERT INTO `tb_menu` VALUES ('5', '2018-11-09 14:31:04', '2018-11-09 14:46:09', '1', 'icon-sys', '上传下载', '0', '0', '1', null);
+INSERT INTO `tb_menu` VALUES ('5', '2018-11-09 14:31:04', '2019-01-30 16:23:32', '1', 'icon-sys', '上传下载', '0', '0', '2', null);
 INSERT INTO `tb_menu` VALUES ('6', '2018-11-09 14:48:29', '2018-11-09 15:31:06', '2', 'icon-nav', '上传下载', '0', '5', '1', 'user/uploadDemo/toUploadDemo');
 
 -- ----------------------------
@@ -107,3 +107,23 @@ INSERT INTO `tb_sys_user` VALUES ('1', '2018-07-24 15:35:24', '2018-09-03 09:42:
 INSERT INTO `tb_sys_user` VALUES ('2', '2018-09-04 19:00:30', '2018-11-08 15:39:58', '1', 'admin1', 'e10adc3949ba59abbe56e057f20f883e', '0');
 INSERT INTO `tb_sys_user` VALUES ('3', '2018-09-04 19:04:15', '2018-11-08 15:39:59', '1', 'admin2', 'e10adc3949ba59abbe56e057f20f883e', '0');
 INSERT INTO `tb_sys_user` VALUES ('4', '2018-09-04 19:06:35', '2018-11-08 15:40:01', '1', 'admin3', 'e10adc3949ba59abbe56e057f20f883e', '0');
+
+-- ----------------------------
+-- Table structure for tb_sys_user_log
+-- ----------------------------
+DROP TABLE IF EXISTS `tb_sys_user_log`;
+CREATE TABLE `tb_sys_user_log` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `create_date` datetime NOT NULL,
+  `last_modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `args` text CHARACTER SET utf8 COLLATE utf8_bin COMMENT '参数',
+  `ip` varchar(100) DEFAULT NULL COMMENT 'ip地址',
+  `ret` text CHARACTER SET utf8 COLLATE utf8_bin COMMENT '返回',
+  `url` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL COMMENT 'url地址',
+  `user_id` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of tb_sys_user_log
+-- ----------------------------

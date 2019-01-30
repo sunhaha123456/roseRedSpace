@@ -120,8 +120,8 @@ function ajaxSynchUploadFilePost(conectUrl, params) {
     return res;
 }
 function urlHandle(url) {
-    return url + '?token=' + interceptorToken + '&userId=' + interceptorUserId;
+    return url + '?token=' + interceptorToken + '&userId=' + interceptorUserId + '&randNum=' + Math.random();
 }
 function urlHandleContext(url) {
-    return contextPath + url + '?token=' + interceptorToken + '&userId=' + interceptorUserId;
+    return contextPath + url + '?token=' + interceptorToken + '&userId=' + interceptorUserId + '&randNum=' + Math.random();
 }

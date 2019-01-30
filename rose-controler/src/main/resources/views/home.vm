@@ -23,13 +23,16 @@
 
     <!-- Google Font -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic" />
-    <style>
-        body {
-            overflow:hidden;
-        }
-    </style>
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        var contextPath = [[@{/}]];
+        var interceptorToken = [[${token}]];
+        var interceptorUserId = [[${userId}]];
+        /*]]>*/
+    </script>
+    <script th:src="@{/static/myFun.js}" />
 </head>
-<body class="hold-transition skin-blue sidebar-mini">
+<body class="hold-transition skin-blue sidebar-mini" style="overflow:hidden;">
 <div class="wrapper">
 
     <header class="main-header">
@@ -51,7 +54,7 @@
                 <ul class="nav navbar-nav">
                     <li class="dropdown user user-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <span class="hidden-xs">用户：悟空</span>
+                            <span class="hidden-xs">用户：<span id="unameHomeSpan"/></span>
                         </a>
                     </li>
                     <li class="dropdown user user-menu">
@@ -61,7 +64,7 @@
                     </li>
                     <li class="dropdown user user-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <span class="hidden-xs">退出登录</span>
+                            <span class="hidden-xs" onclick="loginOut()">退出登录</span>
                         </a>
                     </li>
                     <li class="dropdown user user-menu">
@@ -180,8 +183,18 @@
             treeMenu.show();
         }
     }
+    function loginOut() {
+        window.location.href = urlHandleContext("login/out");
+    }
     $(function () {
         $('#contentIframe').height(contentMain.height() - navHeader.height() - 15);
+        $("#unameHomeSpan").html([[${uname}]]);
+        //nav初始化
+        var res = ajaxSynchPostJson("user/menuManage/getUserMenu", null);
+        if (res.code == "200") {
+            //menuInit(res.data);
+            //addTab("上传下载", urlHandleContext("user/uploadDemo/toUploadDemo"));
+        }
     });
     /*]]>*/
 </script>
