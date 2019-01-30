@@ -192,8 +192,7 @@
         //nav初始化
         var res = ajaxSynchPostJson("user/menuManage/getUserMenu", null);
         if (res.code == "200") {
-            //menuInit(res.data);
-            //addTab("上传下载", urlHandleContext("user/uploadDemo/toUploadDemo"));
+            alert(res.data)
         }
     });
     /*]]>*/
