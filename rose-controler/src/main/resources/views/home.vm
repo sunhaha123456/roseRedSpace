@@ -81,18 +81,8 @@
         <!-- sidebar: style can be found in sidebar.less -->
         <section class="sidebar">
             <!-- sidebar menu: : style can be found in sidebar.less -->
-            <ul class="sidebar-menu" data-widget="tree">
-                <li class="active treeview menu-open" name="menuLiParent" id="111">
-                    <a href="#">
-                        <i class="fa fa-folder"></i>
-                        <span>Dashboard</span>
-                        <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
-                    </a>
-                    <ul class="treeview-menu" id="aaa1" name="treeViewMenu">
-                        <li class="active" name="menuLiChild" id="222"><a href="index1.html" target="contentIframe" onclick="menuClick('Dashboard', 'Dashboard v1', '111', '222', 'aaa1')"><i class="fa fa-circle-o"></i> Dashboard v1</a></li>
-                        <li name="menuLiChild" id="333"><a href="index2.html" target="contentIframe" onclick="menuClick('Dashboard', 'Dashboard v2', '111', '333', 'aaa1')"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>
-                    </ul>
-                </li>
+            <ul class="sidebar-menu" data-widget="tree" id="menuMain">
+
             </ul>
         </section>
         <!-- /.sidebar -->
@@ -102,14 +92,10 @@
     <div class="content-wrapper" id="contentMain">
         <!-- Content Header (Page header) -->
         <section class="content-header" id="navHeader">
-            <h1>
-                Dashboard
-                <small>Dashboard v1</small>
-            </h1>
         </section>
 
         <!-- Main content -->
-        <iframe src="index1.html" name="contentIframe" frameborder="0" style="width:100%;height:100%;" id="contentIframe">
+        <iframe name="contentIframe" frameborder="0" style="width:100%;" id="contentIframe">
 
         </iframe>
         <!-- /.content -->
@@ -131,14 +117,13 @@
 </body>
 <script th:inline="javascript">
     /*<![CDATA[*/
-    var menuParent = $("#111");
-    var menuChild = $("#222");
-    var treeMenu = $("#aaa1");
+    var menuParent;
+    var menuChild ;
+    var treeMenu;
     var contentMain = $('#contentMain');
     var navHeader = $('#navHeader');
-    var contentIframe = $('#contentIframe');
     function menuClick(menuParentName, menuChildName, menuParentId, menuChildId, treeMenuId){
-        var nav = "<h1>" + menuParentName + "<small>" + menuChildName + "</small></h1>";
+        var nav = menuParentName + "  > " + menuChildName;
         $("#navHeader").html(nav);
 
         menuParent = $('#' + menuParentId);
@@ -186,13 +171,61 @@
     function loginOut() {
         window.location.href = urlHandleContext("login/out");
     }
+    var index = 0;
+    function getUniqueNum() {
+        index = index + 1;
+        return "menu_" + index;
+    }
     $(function () {
-        $('#contentIframe').height(contentMain.height() - navHeader.height() - 15);
-        $("#unameHomeSpan").html([[${uname}]]);
         //nav初始化
         var res = ajaxSynchPostJson("user/menuManage/getUserMenu", null);
         if (res.code == "200") {
-            alert(res.data)
+            var parentMenuArr = res.data;
+            var menuMainHtml = '';
+            var navHeaderHtml = '';
+            parentMenuArr.forEach(function(parentMenu, i){
+                var parentMenuId = getUniqueNum();
+                var treeViewId = getUniqueNum();
+                var parentMenuName = parentMenu.menuName;
+                var parentMenuIcon = parentMenu.iconCls;
+                if (i == 0) {
+                    menuParent = $('#' + parentMenuId);
+                    treeMenu = $('#' + treeViewId);
+                    navHeaderHtml = parentMenuName + "  > ";
+                    menuMainHtml = menuMainHtml + "<li class='active treeview menu-open' name='menuLiParent' id='" + parentMenuId + "'>";
+                } else {
+                    menuMainHtml = menuMainHtml + "<li class='treeview' name='menuLiParent' id='" + parentMenuId + "'>";
+                }
+                menuMainHtml = menuMainHtml + "<a href='#'>";
+                menuMainHtml = menuMainHtml + "<i class='fa " + parentMenuIcon + "'></i>";
+                menuMainHtml = menuMainHtml + "<span>" + parentMenuName + "</span>";
+                menuMainHtml = menuMainHtml + "<span class='pull-right-container'><i class='fa fa-angle-left pull-right'></i></span>";
+                menuMainHtml = menuMainHtml + "</a>";
+                menuMainHtml = menuMainHtml + "<ul class='treeview-menu' id='" + treeViewId + "' name='treeViewMenu'>";
+                var childMenuArr = parentMenu.children;
+                childMenuArr.forEach(function(childMenu, j){
+                    var childMenuId = getUniqueNum();
+                    var childMenuName = childMenu.menuName;
+                    var childMenuIcon = childMenu.iconCls;
+                    var childMenuUrl = childMenu.url;
+                    var href = urlHandleContext(childMenuUrl);
+                    var onclickHtml = "menuClick('" + parentMenuName + "', '" + childMenuName + "', '" + parentMenuId + "', '" + childMenuId + "', '" + treeViewId + "')";
+                    if (i == 0 && j == 0) {
+                        $('#contentIframe').attr('src', href);
+                        menuChild = $('#' + childMenuId);
+                        navHeaderHtml = navHeaderHtml + childMenuName;
+                        menuMainHtml = menuMainHtml + "<li class='active' name='menuLiChild' id='" + childMenuId + "'><a href='" + href + "' target='contentIframe' onclick=" + onclickHtml + "><i class='fa " + childMenuIcon + "'></i>" + childMenuName + "</a></li>";
+                    } else {
+                        menuMainHtml = menuMainHtml + "<li name='menuLiChild' id='" + childMenuId + "'><a href='" + href + "' target='contentIframe' onclick=" + onclickHtml + "><i class='fa " + childMenuIcon + "'></i>" + childMenuName + "</a></li>";
+                    }
+                });
+                menuMainHtml = menuMainHtml + "</ul>";
+                menuMainHtml = menuMainHtml + "</li>";
+            });
+            $("#menuMain").html(menuMainHtml);
+            $("#navHeader").html(navHeaderHtml);
+            $('#contentIframe').height(contentMain.height() - navHeader.height() - 15);
+            $("#unameHomeSpan").html([[${uname}]]);
         }
     });
     /*]]>*/
