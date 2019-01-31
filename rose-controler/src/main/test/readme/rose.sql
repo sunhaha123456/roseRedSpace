@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50520
 File Encoding         : 65001
 
-Date: 2019-01-30 16:26:35
+Date: 2019-01-31 18:35:27
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -36,12 +36,12 @@ CREATE TABLE `tb_menu` (
 -- ----------------------------
 -- Records of tb_menu
 -- ----------------------------
-INSERT INTO `tb_menu` VALUES ('1', '2018-06-23 18:11:17', '2019-01-30 16:23:38', '1', 'icon-sys', '用户管理', '0', '0', '1', '');
-INSERT INTO `tb_menu` VALUES ('2', '2018-06-23 18:11:17', '2018-11-09 15:29:20', '2', 'icon-nav', '用户管理', '0', '1', '3', 'user/userManage/toUserManage');
-INSERT INTO `tb_menu` VALUES ('3', '2018-06-23 18:11:17', '2018-11-09 15:29:59', '2', 'icon-nav', '角色管理', '0', '1', '2', 'user/roleManage/toRoleManage');
-INSERT INTO `tb_menu` VALUES ('4', '2018-06-23 18:11:17', '2018-11-09 15:30:33', '2', 'icon-nav', '菜单管理', '0', '1', '1', 'user/menuManage/toMenuManage');
-INSERT INTO `tb_menu` VALUES ('5', '2018-11-09 14:31:04', '2019-01-30 16:23:32', '1', 'icon-sys', '上传下载', '0', '0', '2', null);
-INSERT INTO `tb_menu` VALUES ('6', '2018-11-09 14:48:29', '2018-11-09 15:31:06', '2', 'icon-nav', '上传下载', '0', '5', '1', 'user/uploadDemo/toUploadDemo');
+INSERT INTO `tb_menu` VALUES ('1', '2018-06-23 18:11:17', '2019-01-31 15:30:12', '1', 'fa-folder', '用户管理', '0', '0', '1', '');
+INSERT INTO `tb_menu` VALUES ('2', '2018-06-23 18:11:17', '2019-01-31 15:31:26', '2', 'fa-circle-o', '用户管理', '0', '1', '3', 'user/userManage/toUserManage');
+INSERT INTO `tb_menu` VALUES ('3', '2018-06-23 18:11:17', '2019-01-31 15:31:32', '2', 'fa-circle-o', '角色管理', '0', '1', '2', 'user/roleManage/toRoleManage');
+INSERT INTO `tb_menu` VALUES ('4', '2018-06-23 18:11:17', '2019-01-31 15:31:37', '2', 'fa-circle-o', '菜单管理', '0', '1', '1', 'user/menuManage/toMenuManage');
+INSERT INTO `tb_menu` VALUES ('5', '2018-11-09 14:31:04', '2019-01-31 15:29:45', '1', 'fa-folder', '上传下载', '0', '0', '2', null);
+INSERT INTO `tb_menu` VALUES ('6', '2018-11-09 14:48:29', '2019-01-31 15:31:12', '2', 'fa-circle-o', '上传下载', '0', '5', '1', 'user/uploadDemo/toUploadDemo');
 
 -- ----------------------------
 -- Table structure for tb_menu_role_group_releation
