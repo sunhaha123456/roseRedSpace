@@ -222,7 +222,6 @@
                 menuMainHtml = menuMainHtml + "</ul>";
                 menuMainHtml = menuMainHtml + "</li>";
             });
-            alert(menuMainHtml);
             $("#menuMain").html(menuMainHtml);
             $("#navHeader").html(navHeaderHtml);
             $('#contentIframe').height(contentMain.height() - navHeader.height() - 15);
