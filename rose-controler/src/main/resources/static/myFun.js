@@ -11,13 +11,13 @@ function isNotEmpty(str) {
     return !isEmpty(str);
 }
 function alertInfo(info) {
-    parent.$.messager.alert('提示信息！', info, 'info');
+    $.messager.alert('提示信息！', info, 'info');
 }
 function alertSuccess() {
-    parent.$.messager.alert('提示信息！', "操作成功！", 'info');
+    $.messager.alert('提示信息！', "操作成功！", 'info');
 }
 function alertWarn(info) {
-    parent.$.messager.alert('警告操作！', info, 'warning');
+    $.messager.alert('警告操作！', info, 'warning');
 }
 function loadTip() { // 弹出加载层
     $("<div class=\"datagrid-mask\"></div>").css({
