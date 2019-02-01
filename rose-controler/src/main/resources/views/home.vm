@@ -37,7 +37,7 @@
 
     <header class="main-header">
         <!-- Logo -->
-        <a href="index.html" class="logo">
+        <a class="logo" id="logo">
             <!-- mini logo for sidebar mini 50x50 pixels -->
             <span class="logo-mini"><b>运管</b></span>
             <!-- logo for regular state and mobile devices -->
@@ -118,8 +118,11 @@
 <script th:inline="javascript">
     /*<![CDATA[*/
     var menuParent;
+    var menuParentId;
     var menuChild ;
+    var menuChildId;
     var treeMenu;
+    var treeMenuId;
     var contentMain = $('#contentMain');
     var navHeader = $('#navHeader');
     function menuClick(menuParentName, menuChildName, menuParentId, menuChildId, treeMenuId){
@@ -171,12 +174,13 @@
     function loginOut() {
         window.location.href = urlHandleContext("login/out");
     }
-    var index = 0;
-    function getUniqueNum() {
-        index = index + 1;
-        return "menu_" + index;
+    var signIndex = 0;
+    function getUniqueSign() {
+        signIndex = signIndex + 1;
+        return "menu_" + signIndex;
     }
     $(function () {
+        $('#logo').attr('href', urlHandleContext("login/toSuccess"));
         //nav初始化
         var res = ajaxSynchPostJson("user/menuManage/getUserMenu", null);
         if (res.code == "200") {
@@ -184,13 +188,13 @@
             var menuMainHtml = '';
             var navHeaderHtml = '';
             parentMenuArr.forEach(function(parentMenu, i){
-                var parentMenuId = getUniqueNum();
-                var treeViewId = getUniqueNum();
+                var parentMenuId = getUniqueSign();
                 var parentMenuName = parentMenu.menuName;
                 var parentMenuIcon = parentMenu.iconCls;
+                var treeViewId = getUniqueSign();
                 if (i == 0) {
-                    menuParent = $('#' + parentMenuId);
-                    treeMenu = $('#' + treeViewId);
+                    menuParentId = '#' + parentMenuId;
+                    treeMenuId = '#' + treeViewId;
                     navHeaderHtml = parentMenuName + "  > ";
                     menuMainHtml = menuMainHtml + "<li class='active treeview menu-open' name='menuLiParent' id='" + parentMenuId + "'>";
                 } else {
@@ -204,17 +208,17 @@
                 menuMainHtml = menuMainHtml + "<ul class='treeview-menu' id='" + treeViewId + "' name='treeViewMenu'>";
                 var childMenuArr = parentMenu.children;
                 childMenuArr.forEach(function(childMenu, j){
-                    var childMenuId = getUniqueNum();
+                    var childMenuId = getUniqueSign();
                     var childMenuName = childMenu.menuName;
                     var childMenuIcon = childMenu.iconCls;
                     var childMenuUrl = childMenu.url;
                     var href = urlHandleContext(childMenuUrl);
                     var onclickHtml = "menuClick('" + parentMenuName + "', '" + childMenuName + "', '" + parentMenuId + "', '" + childMenuId + "', '" + treeViewId + "')";
                     if (i == 0 && j == 0) {
+                        menuChildId = '#' + childMenuId;
                         $('#contentIframe').attr('src', href);
-                        menuChild = $('#' + childMenuId);
                         navHeaderHtml = navHeaderHtml + childMenuName;
-                        menuMainHtml = menuMainHtml + "<li class='active' name='menuLiChild' id='" + childMenuId + "'><a href='" + href + "' target='contentIframe' onclick='" + onclickHtml + "'><i class='fa " + childMenuIcon + "'></i>" + childMenuName + "</a></li>";
+                        menuMainHtml = menuMainHtml + "<li class='active' name='menuLiChild' id='" + childMenuId + "'><a href='" + href + "' target='contentIframe' onclick=\"" + onclickHtml + "\"><i class='fa " + childMenuIcon + "'></i>" + childMenuName + "</a></li>";
                     } else {
                         menuMainHtml = menuMainHtml + "<li name='menuLiChild' id='" + childMenuId + "'><a href='" + href + "' target='contentIframe' onclick=\"" + onclickHtml + "\"><i class='fa " + childMenuIcon + "'></i>" + childMenuName + "</a></li>";
                     }
@@ -226,6 +230,9 @@
             $("#navHeader").html(navHeaderHtml);
             $('#contentIframe').height(contentMain.height() - navHeader.height() - 15);
             $("#unameHomeSpan").html([[${uname}]]);
+            var menuParent = $(menuParentId);
+            var menuChild = $(menuChild);
+            var treeMenu = $(treeMenuId);;
         }
     });
     /*]]>*/
