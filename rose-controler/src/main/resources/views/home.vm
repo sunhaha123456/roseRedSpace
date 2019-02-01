@@ -95,7 +95,7 @@
         </section>
 
         <!-- Main content -->
-        <iframe name="contentIframe" frameborder="0" style="width:100%;" id="contentIframe">
+        <iframe name="contentIframe" frameborder="0" style="width:100%; padding-top: 5px;" id="contentIframe">
 
         </iframe>
         <!-- /.content -->
@@ -125,6 +125,7 @@
     var treeMenuId;
     var contentMain = $('#contentMain');
     var navHeader = $('#navHeader');
+    var iframeHightConst = 45;
     function menuClick(menuParentName, menuChildName, menuParentId, menuChildId, treeMenuId){
         var nav = menuParentName + "  > " + menuChildName;
         $("#navHeader").html(nav);
@@ -156,7 +157,7 @@
                 menuChild.addClass("active");
             }
         });
-        $('#contentIframe').height(contentMain.height() - navHeader.height() - 15);
+        $('#contentIframe').height(contentMain.height() - navHeader.height() - iframeHightConst);
     }
     var showFlag = true;
     function toggleClick() {
@@ -228,7 +229,7 @@
             });
             $("#menuMain").html(menuMainHtml);
             $("#navHeader").html(navHeaderHtml);
-            $('#contentIframe').height(contentMain.height() - navHeader.height() - 15);
+            $('#contentIframe').height(contentMain.height() - navHeader.height() - iframeHightConst);
             $("#unameHomeSpan").html([[${uname}]]);
             var menuParent = $(menuParentId);
             var menuChild = $(menuChild);
