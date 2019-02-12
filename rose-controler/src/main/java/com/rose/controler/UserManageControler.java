@@ -42,6 +42,12 @@ public class UserManageControler {
         userService.add(param);
     }
 
+    /**
+     * 功能：操作用户状态
+     * @param id
+     * @param state 0：解冻恢复正常 1：冻结 2：注销（只有冻结后，才能注销）
+     * @throws Exception
+     */
     @GetMapping(value= "/opert")
     public void opert(@RequestParam Long id, @RequestParam Integer state) throws Exception {
         userService.opert(id, state);
