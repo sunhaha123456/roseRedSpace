@@ -54,10 +54,10 @@ public class LoginServiceImpl implements LoginService {
             throw new BusinessException(ResponseResultCode.USER_STATE_ERROR);
         }
         if (sysUser.getUserState() == 1) {
-            throw new BusinessException(400, "用户已被冻结！");
+            throw new BusinessException("用户已被冻结！");
         }
         if (sysUser.getUserState() == 2) {
-            throw new BusinessException(401, "用户已被注销！");
+            throw new BusinessException("用户已被注销！");
         }
         TbRoleGroup role = roleGroupRepository.findOne(sysUser.getRoleGroupId());
         if (role == null) {
