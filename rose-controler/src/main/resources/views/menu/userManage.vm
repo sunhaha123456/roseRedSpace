@@ -21,8 +21,10 @@
             var showMsg = '';
             if (state == 0) {
                 showMsg = '您确定解冻该用户吗？';
-            } else {
+            } else if (state == 1) {
                 showMsg = '您确定冻结该用户吗？';
+            } else {
+                showMsg = '您确定注销该用户吗？';
             }
             var rows = $('#manager').datagrid('getSelections');
             if (rows.length > 0) {
