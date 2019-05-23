@@ -30,6 +30,7 @@ public class HttpClientUtil {
     // 传输超时时间，默认30秒
     private static int connectTimeout = 30000;
 
+    // demo ：HttpClientUtil.async(() -> HttpClientUtil.postJson("http://127.0.0.1:8081/dubbo-consumer-web/rpc/hello", "body", false));
     private static Executor executor = new ThreadPoolExecutor(3, 100, 60L, TimeUnit.SECONDS, new SynchronousQueue<Runnable>());
 
     public static void async(Runnable runnable){
